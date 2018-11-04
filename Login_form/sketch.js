@@ -14,8 +14,11 @@ function setup() {
 
   var button = select('#SignButton');
   button.mousePressed(Submit);
-
-
+  if(windowWidth<windowHeight){
+  noCanvas();
+  }
+  //var test = select('#validation');
+ // console.log(test.html());
 }
 
 function draw() {
@@ -23,7 +26,8 @@ function draw() {
     OffsetX=map(mouseX,0,windowWidth,-10,10);
     OffsetY=map(mouseY,0,windowHeight,-10,10);
     image(bg,-30+OffsetX,-30+OffsetY,windowWidth+100,windowHeight+100);
-    Pin();
+  //  Pin();
+    
 }
 
 function Pin(){
@@ -44,6 +48,8 @@ function Pin(){
 
 
 function Submit() {
+  var ButtonStatus=select('#SignButton').value();
+  if (ButtonStatus=="register"){
   var usrname=select('#username').value();
   var pass=select('#password').value();
   console.log(usrname,pass);
@@ -53,5 +59,23 @@ function Submit() {
   
   }
   httpPost('register/',data,'json');
+  } 
+  if (ButtonStatus=="signin"){
+    var usrname=select('#username').value();
+    var pass=select('#password').value();
+    console.log(usrname,pass);
+    var data={
+      usr:usrname,
+      pas:pass,
+    
+    }
+    httpPost('signin/',data,'json',signinData);
+  }
 
+}
+
+function signinData(response){
+  console.log(response);
+    var test = select('#validation');
+   test.html(response.msg);
 }

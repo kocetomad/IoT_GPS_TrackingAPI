@@ -22,11 +22,21 @@
           document.getElementById("reg").className = "active";
           document.getElementById("sign").className = "nonactive";
           document.getElementById("SignButton").innerHTML = "Register";
+          document.getElementById("SignButton").value = "register";
+          document.getElementById("password").value = "";
+          document.getElementById("username").value = "";
+
+
+
       }
       function SignPanel() {
           document.getElementById("reg").className = "nonactive";
           document.getElementById("sign").className = "active";
           document.getElementById("SignButton").innerHTML = "Sign In";
+          document.getElementById("SignButton").value = "signin";
+          document.getElementById("password").value = "";
+          document.getElementById("username").value = "";
+
 
 
       }
@@ -45,10 +55,10 @@
     <span>password</span>
     <br>
 
-    <input type="checkbox" id="checkbox-1-1" class="custom-checkbox" />
-    <label for="checkbox-1-1">Keep me Signed in</label>
+    <p id="validation" style="color:red;">this is a test</p>
+
     
-    <button id="SignButton" class="signin">
+    <button id="SignButton" type="button" class="signin" value="signin">
       Sign In
     </button>
 
@@ -57,5 +67,6 @@
 
     <a href="#">Forgot Password?</a>
   </form>
+
 
 </div>

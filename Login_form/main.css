@@ -13,7 +13,7 @@ body,
 }
 
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 1080px) {
 
     .login {
         position: relative;
@@ -28,7 +28,7 @@ body,
       }
 
     }
-@media screen and (min-width: 321px) {
+@media screen and (min-width: 1920px) {
   html, body{overflow:hidden;margin:0;
     padding:0;}
     .login {
