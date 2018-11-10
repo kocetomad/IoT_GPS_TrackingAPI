@@ -25,10 +25,14 @@ client.connect()
 
 
 
-
-
-
-
+var USER=""
+app.get('/profile',profile);
+function profile(request,response){
+    var reply={
+        usr: USER
+    }
+    response.send(reply);
+}
 
 
 app.post('/register',Register);
@@ -57,7 +61,15 @@ function Signin(request,response){
           for(var i=0;i<res.rows.length;i++){
             if(res.rows[i].username==request.body.usr && res.rows[i].password==request.body.pas){
                 console.log("match")
+                var reply={
+                    msg: 'sucess',
+                    usr: request.body.usr,
+                }
+                USER=request.body.usr;
+                response.send(reply);
                 break;
+
+
             }else{
                 if(i==res.rows.length-1){
                     respond=true;
@@ -72,7 +84,7 @@ function Signin(request,response){
           }
     }
     })
-    
+
     
 }
 
@@ -84,5 +96,5 @@ function listening(){
   }
 
 app.use(express.static("Login_form"));
-
+app.use('/profile' , express.static("Profiles"));
 

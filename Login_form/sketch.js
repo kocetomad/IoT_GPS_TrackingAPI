@@ -76,6 +76,11 @@ function Submit() {
 
 function signinData(response){
   console.log(response);
+  if(response.msg=="sucess"){
+    location.href = location.href + "profile"
+    }
     var test = select('#validation');
    test.html(response.msg);
+   
+
 }
