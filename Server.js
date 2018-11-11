@@ -24,35 +24,60 @@ const client = new Client({
 client.connect()
 
 
-
-var USER=""
-app.get('/profile',profile);
+USER=""
+app.get('/userdata',profile);
 function profile(request,response){
+  
     var reply={
         usr: USER
     }
-    response.send(reply);
+    response.send(reply); 
+    USER=""
+   
 }
 
-
+/////////////////////////////////////////////////USER VALIDATION////////////////////////////////////////////////
 app.post('/register',Register);
 
 function Register(request,response){
     console.log(request.body);
-    client.query("INSERT INTO registered_users VALUES ('"+request.body.usr+"','"+request.body.pas+"');", (err, res) => {
+    client.query("SELECT * FROM registered_users ", (err, res) => {
         if (err) {
-          console.log(err.stack)
+            console.log(err.stack)
         } else {
-          //console.log(res.rows[0])
+            for(var i=0;i<res.rows.length;i++){
+            if(res.rows[i].username==request.body.usr){
+                var reply={
+                    msg: 'Username aleready in use',
+                }
+                response.send(reply);
+                break;
+            }else{
+                if(i==res.rows.length-1){
+
+                client.query("INSERT INTO registered_users VALUES ('"+request.body.usr+"','"+request.body.pas+"');", (err, res) => {
+                    if (err) {
+                      console.log(err.stack)
+                    } else {
+                      //console.log(res.rows[0])
+                }
+                })
+                var reply={
+                    msg: 'Succesfull registration',
+                }
+                response.send(reply);
+                }
+            }   
+        }
     }
     })
+    
 
 }
 
 app.post('/signin',Signin);
 
 function Signin(request,response){
-    var respond=false;
     console.log(request.body);
     client.query("SELECT * FROM registered_users ", (err, res) => {
         if (err) {
@@ -87,7 +112,7 @@ function Signin(request,response){
 
     
 }
-
+////////////////////////////////////////////////////////END OF USER VALIDATION///////////////////////////////////////////////////////////
 
 function listening(){
 

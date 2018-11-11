@@ -58,7 +58,7 @@ function Submit() {
     pas:pass,
   
   }
-  httpPost('register/',data,'json');
+  httpPost('register/',data,'json',RegData);
   } 
   if (ButtonStatus=="signin"){
     var usrname=select('#username').value();
@@ -81,6 +81,15 @@ function signinData(response){
     }
     var test = select('#validation');
    test.html(response.msg);
+   
+
+}
+
+
+function RegData(response){
+  console.log(response);
+  var test = select('#validation');
+  test.html(response.msg);
    
 
 }
