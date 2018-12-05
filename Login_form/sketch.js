@@ -7,6 +7,10 @@ let OffsetY;
 var pinY=random(20,windowWidth-20);
 var pinX=random(40,windowHeight-40);
 function setup() {
+
+  //login cookie
+  document.cookie = "username=;expires=Thu, 01 Jan 1999 00:00:00 UTC; path=/;";
+
   pin=loadImage("images/pin.png");
   bg = loadImage("images/bck3.png");
   var cnv = createCanvas(windowWidth, windowHeight);
