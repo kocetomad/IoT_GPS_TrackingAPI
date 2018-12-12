@@ -116,9 +116,9 @@ function Signin(request,response){
 
 
 
-app.get('/locations',locations);
+app.get('/locations/:USER',locations);
 function locations(request,response){
-  
+    
 
     client.query("SELECT * FROM devices ", (err, res) => {
         if (err) {
