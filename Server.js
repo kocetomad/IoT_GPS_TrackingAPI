@@ -114,6 +114,29 @@ function Signin(request,response){
 }
 ////////////////////////////////////////////////////////END OF USER VALIDATION///////////////////////////////////////////////////////////
 
+
+
+app.get('/locations',locations);
+function locations(request,response){
+  
+
+    client.query("SELECT * FROM devices ", (err, res) => {
+        if (err) {
+          console.log(err.stack)
+        } else {
+            var reply={
+                msg: res.rows
+            }
+            console.log(reply);
+            response.send(reply);
+                
+    }
+    })
+   
+}
+
+
+
 function listening(){
 
     console.log("Listening...")

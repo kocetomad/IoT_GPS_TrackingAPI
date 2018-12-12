@@ -1,37 +1,89 @@
 <script src="ProfilesSketch.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.js"></script>
-<p id='welcome'>hi</p>
-<head>
-    <title>Simple Map</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-  </head>
 
-<body>
-    <div id="map"></div>
-    <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
-        });
-      }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAznFiRuuRCWawV2OGfHti4Md5mZbLyIMU&callback=initMap"
-    async defer></script>
-  </body>
+<link rel="stylesheet" type="text/css" href="main.css">
+
+
+<div id="nav-bg" class="btn"></div>
+<div id="toggle-btn" class="btn">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<div class="wrapper">
+  <nav>
+    <ul>
+      <li><a class="link" href="map/map.html">Locate devices</a></li>
+      <li><a class="link" href="manage/manage.html">Manage devices</a></li>
+      <li><a class="link" href="/">Log out</a></li>
+    </ul>
+  </nav>
+  
+  <div id="content">
+    <h1 id="welcome">Floating circle navigation ~60fps animation</h1>
+  </div>
+</div>
+
+<script>
+  const elem = document.querySelector('#nav-bg'),
+    toggleBtn = document.querySelector('#toggle-btn'),
+    elemH = elem.getBoundingClientRect().height,
+    elemW = elem.getBoundingClientRect().width;
+
+let open = false;
+let scale, offsetX, offsetY;
+
+const calculateValues = (() => {
+const w = window.innerWidth;
+const h = window.innerHeight;
+//const cssStyles = getComputedStyle(elem);
+//const offsetValue = Number(cssStyles.getPropertyValue('--offset-value'));
+const offsetValue = Number(getComputedStyle(elem).getPropertyValue('--offset-value'));
+
+//  Offsets to center the circle
+offsetX = (w/2) - (elemW/2) - offsetValue;
+offsetY = (h/2) - (elemH/2) - offsetValue;
+
+// Good old pythagoras
+const radius = Math.sqrt((Math.pow(h, 2))+(Math.pow(w, 2)));
+scale = radius/(elemW/2)/2 + .1; // Add '.1' to compensate for Safari sub pixel blur issue
+return scale;
+})
+
+
+const openMenu = () => {
+elem.style.setProperty("--translate-x", `${offsetX}px`);
+elem.style.setProperty("--translate-y", `-${offsetY}px`);
+elem.style.setProperty("--scale", scale);
+}
+const closeMenu = () => {
+elem.style.setProperty("--scale", 1);
+elem.style.setProperty("--translate-x", 0);
+elem.style.setProperty("--translate-y", 0);
+}
+const animateMenu = () => {
+open ? openMenu() : closeMenu();
+};
+
+const toggleMenu = () => {
+open = !open;
+animateMenu();
+toggleBtn.classList.toggle('shown');
+}
+
+const resizeHandler = () => { 
+window.requestAnimationFrame(() => {
+  calculateValues();
+  animateMenu();
+});
+}
+
+calculateValues();
+
+//toggleBtn.onclick = toggleMenu;
+toggleBtn.addEventListener('click', toggleMenu, false);
+window.addEventListener("resize", resizeHandler, false);
+
+</script>

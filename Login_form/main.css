@@ -13,8 +13,7 @@ body,
 }
 
 
-@media screen and (max-width: 1080px) {
-
+@media (orientation:portrait) {
     .login {
         position: relative;
         
@@ -28,7 +27,7 @@ body,
       }
 
     }
-@media screen and (min-width: 1920px) {
+@media (orientation:landscape) {
   html, body{overflow:hidden;margin:0;
     padding:0;}
     .login {
