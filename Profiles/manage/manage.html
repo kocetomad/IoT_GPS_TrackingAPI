@@ -1,4 +1,10 @@
 <link rel="stylesheet" type="text/css" href="main.css">
+<script src="libs/p5.js"></script>
+<script src="libs/addons/p5.dom.js"></script>
+
+
+<script src="manage.js"></script>
+
 
 <style>
     @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
@@ -263,21 +269,21 @@ window.addEventListener("resize", resizeHandler, false);
     <div id="form-div">
       <form class="form" id="form1">
         
-        <p class="name">
-          <input name="name" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Device ID" id="name" />
+        <p class="name" >
+          <input name="name" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Device ID" id="name" value="poo">
         </p>
         
      
-        <p class="text">
+        <p class="text" >
           <textarea name="text" class="validate[required,length[6,300]] feedback-input" id="comment" placeholder="Comment"></textarea>
         </p>
         
         
         <div class="submit">
-          <input type="button" value="SEND" id="button-blue"/>
+          <input type="button" value="SEND" id="button-blue" class="Send"/>
           <div class="ease"></div>
         </div>
       </form>
     </div>
 
-    
+		<h1 id="welcome">Floating circle navigation ~60fps animation</h1>

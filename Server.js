@@ -114,9 +114,9 @@ function Signin(request,response){
 }
 ////////////////////////////////////////////////////////END OF USER VALIDATION///////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////SEND LOCATIONS/////////////////////////////////////////////////
 
-
-app.get('/locations/:USER',locations);
+app.get('/locations',locations);
 function locations(request,response){
     
 
@@ -134,6 +134,31 @@ function locations(request,response){
     })
    
 }
+
+///////////////////////////////////////////////////////END OF SEND LOCATIONS/////////////////////////////////////////////////
+
+
+app.post('/manageDev',manage);
+function manage(request,response){
+    
+    console.log(request.body);
+   // response.send(request.body);
+/*
+    client.query("SELECT * FROM devices ", (err, res) => {
+        if (err) {
+          console.log(err.stack)
+        } else {
+            var reply={
+                msg: res.rows
+            }
+            console.log(reply);
+            response.send(reply);
+                
+    }
+    })*/
+   
+}
+
 
 
 

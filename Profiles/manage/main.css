@@ -3,7 +3,9 @@ IMPORTS
 ======= */
 @import url('https://fonts.googleapis.com/css?family=Encode+Sans+Condensed:400,600');
 
-
+body {
+  overflow:hidden;
+}
 /* =========
 VARIABLES
 ========= */
@@ -11,7 +13,7 @@ VARIABLES
   --offset-value: 30;
   --btn-size: 60;
   
-  --green: #1161ed;
+  --green: #1a212c;
 }
 
 
