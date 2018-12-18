@@ -264,13 +264,12 @@ window.addEventListener("resize", resizeHandler, false);
 
 
 
-
 <div id="form-main">
     <div id="form-div">
       <form class="form" id="form1">
         
         <p class="name" >
-          <input name="name" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Device ID" id="name" value="poo">
+          <input name="name" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Device ID" id="name" >
         </p>
         
      
@@ -287,3 +286,28 @@ window.addEventListener("resize", resizeHandler, false);
     </div>
 
 		<h1 id="welcome">Floating circle navigation ~60fps animation</h1>
+		<script>
+			document.getElementById("button-blue").onclick = function() {Clear()};
+		
+			function Clear() {
+					document.getElementById("comment").value = "";
+					document.getElementById("name").value = "";
+		
+		
+		
+			}
+			document.getElementById("button-blue").onmouseover = function() {Hover()};
+
+			function Hover() {
+					
+				  document.getElementById("button-blue").value="SEND";
+		
+		
+		
+			}
+
+
+		
+			</script>
+		
+		

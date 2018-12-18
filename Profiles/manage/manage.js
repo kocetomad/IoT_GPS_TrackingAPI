@@ -1,4 +1,4 @@
-
+var user;
 function setup() {
     var button = select('.Send');
     button.mousePressed(Send);
@@ -16,9 +16,9 @@ function gotData(response){
   
     
     
-    var user = document.cookie;
-    var user = user.split("=");
-    var user = user[1];
+     user = document.cookie;
+     user = user.split("=");
+     user = user[1];
   
     var test = select('#welcome');
     test.html("Welcome "+user+"!");
@@ -33,15 +33,14 @@ function gotData(response){
 function Send() {
 
 
-
-
     
     var deviceID = select('#name').value();
     var comment = select('#comment').value();
     //console.log(deviceID+" "+comment)
       var data={
         id:deviceID,
-        com:comment
+        com:comment,
+        usr:user  
       }
       httpPost("/manageDev",data,'json',success);
     }
@@ -50,6 +49,14 @@ function Send() {
 
   
   function success(response){
+    var button = select('#button-blue');
+
+    if (response.msg==0){
+      button.value("INVALID DEVICE ID")
+    }else{
+      button.value("SUCCESSFUL ENTRY")
+
+    }
     console.log(response);
     /*if(response.msg=="sucess"){
       location.href = location.href + "profile"

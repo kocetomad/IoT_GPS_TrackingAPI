@@ -78,7 +78,7 @@ function Register(request,response){
 app.post('/signin',Signin);
 
 function Signin(request,response){
-    console.log(request.body);
+    //console.log(request.body);
     client.query("SELECT * FROM registered_users ", (err, res) => {
         if (err) {
           console.log(err.stack)
@@ -116,11 +116,11 @@ function Signin(request,response){
 
 ///////////////////////////////////////////////////////SEND LOCATIONS/////////////////////////////////////////////////
 
-app.get('/locations',locations);
+app.post('/locations',locations);
 function locations(request,response){
-    
+    console.log(request.body.usr);
 
-    client.query("SELECT * FROM devices ", (err, res) => {
+    client.query(" select * from devices where users='"+request.body.usr+"';", (err, res) => {
         if (err) {
           console.log(err.stack)
         } else {
@@ -141,21 +141,22 @@ function locations(request,response){
 app.post('/manageDev',manage);
 function manage(request,response){
     
-    console.log(request.body);
-   // response.send(request.body);
-/*
-    client.query("SELECT * FROM devices ", (err, res) => {
+   // console.log(request.body);
+
+    client.query("update devices set label='"+request.body.com+"',users='"+request.body.usr+"' where deviceid="+request.body.id+";", (err, res) => {
+
         if (err) {
           console.log(err.stack)
+        
         } else {
             var reply={
-                msg: res.rows
+                msg: res.rowCount
             }
-            console.log(reply);
+            console.log(res);
             response.send(reply);
-                
+
     }
-    })*/
+    })
    
 }
 
