@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 const { Client } = require('pg');
 const client = new Client({
   user: 'postgres',
-  host: 'localhost',
+  host: '172.17.0.1',
   database: 'diplomna',
   password: '123456',
   port: 5432,

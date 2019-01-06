@@ -10,7 +10,7 @@ function gotData(response){
 
 
   if (response.usr!=""){
-  document.cookie = "username="+response.usr+";expires=Thu, 01 Jan 2019 00:00:00 UTC; path=/;";
+  document.cookie = "username="+response.usr+";expires=Thu, 01 Jan 2020 00:00:00 UTC; path=/;";
   }
 
   
