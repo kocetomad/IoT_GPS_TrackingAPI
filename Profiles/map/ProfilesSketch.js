@@ -43,26 +43,36 @@ function locationData(data){
  // The marker, positioned at Uluru
  map.mapTypes.set('styled_map', styledMapType);
  map.setMapTypeId('styled_map');
-
  for (var i = 0; i < data.msg.length; i++) {
+  
   var latLng = new google.maps.LatLng(data.msg[i].longt,data.msg[i].latd);
-  var marker = new google.maps.Marker({
+  marker= new google.maps.Marker({
     icon: {
     url:'pin.png',
     },
     animation: google.maps.Animation.DROP,
-
     position: latLng,
     map: map,
     title: "device id:"+data.msg[i].deviceid+
     "\n"+"longtitude:"+data.msg[i].longt+
     "\n"+"latitude:"+data.msg[i].latd+
-    "\n"+"label:"+data.msg[i].label
-
-
-
+    "\n"+"label:"+data.msg[i].label,
+    
+   url:"https://www.google.com/maps/dir//"+data.msg[i].longt+","+data.msg[i].latd+"/@"+data.msg[i].longt+","+data.msg[i].latd+""
+    
   });
+  marker.addListener('click', function() {
+   window.location.href = this.url;
+  });
+  
+  
+ 
+  
+  
+}
 
-  }
+
 
 }
+
+
