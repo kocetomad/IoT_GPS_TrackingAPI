@@ -5,6 +5,7 @@
 }
 body,
 .signin {
+	overflow:hidden
   background-color: #d3d3d3;
   font-family: 'Montserrat', sans-serif;
   color: #fff;
@@ -13,27 +14,30 @@ body,
 }
 
 
-@media (orientation:portrait) {
+@media screen and (max-aspect-ratio: 13/9)  {
+	 html, body{overflow:hidden;margin:0;
+    padding:0;}
     .login {
         position: relative;
-        
+		left:-3%;
+
         height: 100%;
         width: 100%;
         margin: auto;
         padding: 1% 3%;
-        background: url(http://mikeyoungweb.com/img/bg4.jpg) no-repeat   center center #505050;   
+        background: url(http://mikeyoungweb.com/img/bg4.jpg) no-repeat   center center #505050;
         background-size: cover;
         box-shadow: 0px 30px 60px -5px #000;
       }
 
     }
-@media (orientation:landscape) {
+@media screen and (min-aspect-ratio: 13/9) {
   html, body{overflow:hidden;margin:0;
     padding:0;}
     .login {
-        position: absolute;  
+        position: absolute;
         top:30%;
-        left: 37.5%;          
+        left: 37.5%;
         height: 44%;
         width: 20%;
         margin: auto;
