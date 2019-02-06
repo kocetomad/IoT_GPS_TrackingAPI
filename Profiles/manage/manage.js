@@ -2,7 +2,9 @@ var user;
 function setup() {
     var button = select('.Send');
     button.mousePressed(Send);
-    loadJSON('/userdata',gotData)
+    loadJSON('/userdata',gotData);
+    var removeButton=select('.Remove');
+    removeButton.mousePressed(Remove);
 
 }
 
@@ -45,7 +47,16 @@ function Send() {
       httpPost("/manageDev",data,'json',success);
     }
   
-  
+function Remove(){
+    var Label =select('.removeLabel').value();
+    var data={
+      label:Label,
+      usr:user  
+
+    }
+    httpPost("/removeDevice",data,'json',success);
+
+}  
 
   
   function success(response){

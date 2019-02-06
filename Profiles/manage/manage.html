@@ -27,7 +27,7 @@ html{
 @media screen and (min-aspect-ratio: 13/9)  {
 	#form-main{
 		position: relative;
-		top:-60%;
+		top:-70%;
 		left: 1%;
 		width:100%;
 		float:left;
@@ -431,6 +431,15 @@ window.addEventListener("resize", resizeHandler, false);
 			top:-20%;
 
 		}
+		#desc8{
+			top: -20%;
+			width: 60%;
+			font-size: 150%;
+			position: relative;
+			left: 38.2%;
+			padding-top:0%;
+
+		}
 
 	}
 
@@ -450,6 +459,7 @@ window.addEventListener("resize", resizeHandler, false);
 	<div id="desc6">Labels are used as a method of destinguishing devices by somethong more than just a plain device id.
 		Labels are   <a style="color: #fff;">not mandatory</a> but greatly improve the general user experience. A label can be as long as the user wishesh(255 charecters
 	at most) but it strongly recomended to use a <a style="color: #fff;">short and descriptive</a> one rather than a long and convaluted label.</div>
+	<div id="desc8" style="color: #fff;">Remove a device:</div>
 
 
 	<div id="form-main">
@@ -473,4 +483,24 @@ window.addEventListener("resize", resizeHandler, false);
 				</form>
 			</div>	
 
+
+			
+
 			<div id="desc7" style="color: #fff;">Register a new device:</div>
+
+			<div id="form-main1" style="position: absolute; top:1600%; left: 50%;">
+				<div id="form-div">
+					<form class="form" id="form1">
+						<p class="text" >
+							<textarea rows="2" name="text" class="validate[required,length[4,300]] feedback-input" class="removeLabel" id="comment" placeholder="Label"></textarea>
+						</p>
+						
+						
+						<div class="submit">
+							<input type="button" value="REMOVE" id="button-blue" class=".Remove"/>
+							<div class="ease"></div>
+						</div>
+					</form>
+				</div>
+			
+			

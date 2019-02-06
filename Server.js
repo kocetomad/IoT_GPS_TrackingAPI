@@ -137,13 +137,52 @@ function locations(request,response){
 
 ///////////////////////////////////////////////////////END OF SEND LOCATIONS/////////////////////////////////////////////////
 
-
+///////////////////////////////////////////////////////DEVICE MANAGMENT SEGMENT////////////////////////////////////////////////
 app.post('/manageDev',manage);
 function manage(request,response){
     
    // console.log(request.body);
+    client.query("select users from devices where deviceid="+request.body.id+";", (err, res) => {
+        if (err) {
+            console.log(err.stack)
+          
+          } else {
+             
+              if(res.rows[0].users==request.body.usr || res.rows[0].users==null || res.rows[0].users==''){
+              client.query("update devices set label='"+request.body.com+"',users='"+request.body.usr+"' where deviceid="+request.body.id+";", (err, res) => {
 
-    client.query("update devices set label='"+request.body.com+"',users='"+request.body.usr+"' where deviceid="+request.body.id+";", (err, res) => {
+                if (err) {
+                  console.log(err.stack)
+                
+                } else {
+                    var reply={
+                        msg: res.rowCount
+                    }
+                    console.log(res);
+                    response.send(reply);
+        
+            }
+            })
+        }else {
+            var reply={
+                msg: 0
+            }
+            response.send(reply);
+        }
+  
+      }
+      })
+    
+
+    }
+
+
+
+app.post('/removeDevice',remove);
+function remove(request,response){
+
+    ///TODO
+    client.query("update devices set label=null where label='"+request.body.label+"' and users='"+request.body.usr+"';update devices set users=null where deviceid=7 and users='keki';", (err, res) => {
 
         if (err) {
           console.log(err.stack)
@@ -157,11 +196,12 @@ function manage(request,response){
 
     }
     })
-   
+
 }
 
 
 
+///////////////////////////////////////////////////////END OF DEVICE MANAGMENT SEGMENT////////////////////////////////////////////////
 
 function listening(){
 
