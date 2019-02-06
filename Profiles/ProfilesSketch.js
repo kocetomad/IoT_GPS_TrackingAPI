@@ -2,6 +2,7 @@
 function setup() {
   loadJSON('/userdata',gotData)
   noCanvas();
+  Android.anchorMode();
 
 
 

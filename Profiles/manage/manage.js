@@ -21,7 +21,7 @@ function gotData(response){
      user = user[1];
   
     var test = select('#welcome');
-    test.html("Welcome "+user+"!");
+    test.html(user+"'s"+" device manager");
     if(test.html()=="Welcome undefined!"){
       location.pathname='/';
       console.log(location.pathname);

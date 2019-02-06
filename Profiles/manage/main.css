@@ -2,10 +2,17 @@
 IMPORTS
 ======= */
 @import url('https://fonts.googleapis.com/css?family=Encode+Sans+Condensed:400,600');
-
+@media screen and (min-aspect-ratio: 13/9)  {
 body {
   overflow:hidden;
 }
+}
+@media screen and (max-aspect-ratio: 13/9)  {
+  body {
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  }
 /* =========
 VARIABLES
 ========= */
@@ -15,11 +22,20 @@ VARIABLES
   
   --green: #1a212c;
 }
+#welcome {
+
+  position: relative;
+  top:2%;
+  left: 2%;
+  color: #fff;
+}
 
 
 /* =======
 WRAPPER
 ======= */
+@media screen and (min-aspect-ratio: 13/9)  {
+
 .wrapper {
   font-family: 'Encode Sans Condensed', sans-serif;
   font-weight: 600;
@@ -28,11 +44,22 @@ WRAPPER
   position: relative;
   background: linear-gradient(to top right, #505050, #1161ed);
 }
-
+}
+@media screen and (max-aspect-ratio: 13/9)  {
+  .wrapper {
+    font-family: 'Encode Sans Condensed', sans-serif;
+    font-weight: 600;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    background: #1161ed;
+  }
+}
 
 /* =====================
 NAVIGATION BACKGROUND
 ===================== */
+
 #nav-bg {
   transform-origin: center center;
   transition: transform .3s;

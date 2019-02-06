@@ -10,7 +10,7 @@
     @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 html{
-  background:#3498db;
+  background:#1161ed;
 }
 
 #feedback-page{
@@ -24,12 +24,27 @@ html{
 	background-color:white;
 	text-align:center;
 }
-
-#form-main{
-	width:100%;
-	float:left;
-	padding-top:30px;
+@media screen and (min-aspect-ratio: 13/9)  {
+	#form-main{
+		position: relative;
+		top:-60%;
+		left: 1%;
+		width:100%;
+		float:left;
+		padding-top:30px;
+	}
 }
+@media screen and (max-aspect-ratio: 13/9)  {
+	#form-main{
+		position: relative;
+		top:110%;
+		left: 1%;
+		width:100%;
+		float:left;
+		padding-top:30px;
+	}
+}
+
 
 #form-div {
 	background-color:#3c3c3c;
@@ -198,7 +213,7 @@ input:focus, textarea:focus {
       <li><a class="link" href="/">Log out</a></li>
     </ul>
   </nav>
-  
+
 
 <script>
   const elem = document.querySelector('#nav-bg'),
@@ -264,28 +279,9 @@ window.addEventListener("resize", resizeHandler, false);
 
 
 
-<div id="form-main">
-    <div id="form-div">
-      <form class="form" id="form1">
-        
-        <p class="name" >
-          <input name="name" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Device ID" id="name" >
-        </p>
-        
-     
-        <p class="text" >
-          <textarea name="text" class="validate[required,length[6,300]] feedback-input" id="comment" placeholder="Comment"></textarea>
-        </p>
-        
-        
-        <div class="submit">
-          <input type="button" value="SEND" id="button-blue" class="Send"/>
-          <div class="ease"></div>
-        </div>
-      </form>
-    </div>
 
-		<h1 id="welcome">Floating circle navigation ~60fps animation</h1>
+
+		<h1 id="welcome">Loading</h1>
 		<script>
 			document.getElementById("button-blue").onclick = function() {Clear()};
 		
@@ -300,7 +296,7 @@ window.addEventListener("resize", resizeHandler, false);
 
 			function Hover() {
 					
-				  document.getElementById("button-blue").value="SEND";
+				  document.getElementById("button-blue").value="ADD";
 		
 		
 		
@@ -309,5 +305,172 @@ window.addEventListener("resize", resizeHandler, false);
 
 		
 			</script>
-		
-		
+	
+	<style>
+		@media screen and (max-aspect-ratio: 13/9)  {
+			#desc1{
+			border-bottom: 8px double;
+			width: 95%;
+			font-size: 200%;
+			position: relative;
+			left: 2%;
+			padding-top:4%; 
+		}
+		#desc2{
+			width: 95%;
+			font-size: 150%;
+			position: relative;
+			left: 2%;
+			padding-top:0%; 
+			
+		}
+		#desc3{
+			border-bottom: 8px double;
+			width: 95%;
+			font-size: 200%;
+			position: relative;
+			left: 2%;
+			padding-top:8%; 
+		}
+		#desc4{
+			width: 95%;
+			font-size: 150%;
+			position: relative;
+			left: 2%;
+			padding-top:0%; 
+			
+		}
+		#desc5{
+			border-bottom: 8px double;
+			width: 95%;
+			font-size: 200%;
+			position: absolute;
+			left: 2%;
+			padding-top:4%; 
+			top:199%
+		}
+		#desc6{
+			width: 95%;
+			font-size: 150%;
+			position: absolute;
+			left: 2%;
+			padding-top:0%;
+			top:211%;
+
+		}
+		#desc7{
+			top: -40%;
+			width: 90%;
+			font-size: 150%;
+			position: absolute;
+			left: 5%;
+			padding-top:0%;
+			top:-20%;
+
+		}
+	}
+	@media screen and (min-aspect-ratio: 13/9)  {
+
+		#desc1{
+			border-bottom: 8px double;
+			width: 30%;
+			font-size: 200%;
+			position: relative;
+			left: 2%;
+			padding-top:4%; 
+		}
+		#desc2{
+			width: 30%;
+			font-size: 150%;
+			position: relative;
+			left: 2%;
+			padding-top:0%; 
+			
+		}
+		#desc3{
+			border-bottom: 8px double;
+			width: 30%;
+			font-size: 200%;
+			position: relative;
+			left: 2%;
+			padding-top:4%; 
+		}
+		#desc4{
+			width: 30%;
+			font-size: 150%;
+			position: relative;
+			left: 2%;
+			padding-top:0%; 
+			
+		}
+		#desc5{
+			border-bottom: 8px double;
+			width: 30%;
+			font-size: 200%;
+			position: absolute;
+			left: 66%;
+			padding-top:4%; 
+			top:5%
+		}
+		#desc6{
+			width: 30%;
+			font-size: 150%;
+			position: absolute;
+			left: 66%;
+			padding-top:0%;
+			top:18%;
+
+		}
+		#desc7{
+			top: -50%;
+			width: 30%;
+			font-size: 150%;
+			position: absolute;
+			left: 37%;
+			padding-top:0%;
+			top:-20%;
+
+		}
+
+	}
+
+	</style>
+	<div id="desc1">How to use the managment tab?</div>
+	<div id="desc2">The management tab is where devices are "added" to the user's profile.
+		If a device is succesfully added it will be immediately visible in the <a style="color: #fff;     text-decoration: underline;" href="/profile/map/map.html">"Locate devices"</a> tab. Whenever a new device is added the user must 
+		specify a unique device Id number and a "label" message.</div>
+
+	<div id="desc3">What is a device ID?</div>
+	<div id="desc4">The Id of a device is a <a style="color: #fff;">uniquely assigned number</a> that should be provided with each 
+		newly bought device. Each and every device part of the system, has an ID number. From the moment a device gets powered on for the first time it will immidetly send it's location to the central server but in order for a
+		 user to claim a device as their own they have to "register" the id in order for the device to become "visible" for them.  </div>
+
+
+	<div id="desc5">What is a device Label?</div>
+	<div id="desc6">Labels are used as a method of destinguishing devices by somethong more than just a plain device id.
+		Labels are   <a style="color: #fff;">not mandatory</a> but greatly improve the general user experience. A label can be as long as the user wishesh(255 charecters
+	at most) but it strongly recomended to use a <a style="color: #fff;">short and descriptive</a> one rather than a long and convaluted label.</div>
+
+
+	<div id="form-main">
+			<div id="form-div">
+				<form class="form" id="form1">
+					
+					<p class="name" >
+						<input name="name" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Device ID" id="name" >
+					</p>
+					
+			 
+					<p class="text" >
+						<textarea name="text" class="validate[required,length[6,300]] feedback-input" id="comment" placeholder="Label"></textarea>
+					</p>
+					
+					
+					<div class="submit">
+						<input type="button" value="ADD" id="button-blue" class="Send"/>
+						<div class="ease"></div>
+					</div>
+				</form>
+			</div>	
+
+			<div id="desc7" style="color: #fff;">Register a new device:</div>
