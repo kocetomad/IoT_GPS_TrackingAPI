@@ -128,6 +128,12 @@ html{
 	background-position: 11px 8px;
 	background-repeat: no-repeat;
 }
+#comment2{
+	background-image: url(http://rexkirby.com/kirbyandson/images/comment.svg);
+	background-size: 30px 30px;
+	background-position: 11px 8px;
+	background-repeat: no-repeat;
+}
 
 textarea {
 	width: 100%;
@@ -155,12 +161,31 @@ input:focus, textarea:focus {
 	-moz-transition: all 0.3s;
 	transition: all 0.3s;
 }
+#button-blue2{
+	font-family: 'Montserrat', Helvetica, Arial,  sans-serif;
+	float:left;
+	width: 100%;
+	border: #fbfbfb solid 4px;
+	cursor:pointer;
+	background-color: #3498db;
+	color:white;
+	font-size:24px;
+	padding-top:22px;
+	padding-bottom:22px;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
 
 #button-blue:hover{
 	background-color: rgba(0,0,0,0);
 	color: #0493bd;
 }
 	
+#button-blue2:hover{
+	background-color: rgba(0,0,0,0);
+	color: #0493bd;
+}
 .submit:hover {
 	color: #3498db;
 }
@@ -282,29 +307,7 @@ window.addEventListener("resize", resizeHandler, false);
 
 
 		<h1 id="welcome">Loading</h1>
-		<script>
-			document.getElementById("button-blue").onclick = function() {Clear()};
-		
-			function Clear() {
-					document.getElementById("comment").value = "";
-					document.getElementById("name").value = "";
-		
-		
-		
-			}
-			document.getElementById("button-blue").onmouseover = function() {Hover()};
-
-			function Hover() {
-					
-				  document.getElementById("button-blue").value="ADD";
-		
-		
-		
-			}
-
-
-		
-			</script>
+	
 	
 	<style>
 		@media screen and (max-aspect-ratio: 13/9)  {
@@ -485,22 +488,58 @@ window.addEventListener("resize", resizeHandler, false);
 
 
 			
-
+		
 			<div id="desc7" style="color: #fff;">Register a new device:</div>
 
 			<div id="form-main1" style="position: absolute; top:1600%; left: 50%;">
 				<div id="form-div">
 					<form class="form" id="form1">
 						<p class="text" >
-							<textarea rows="2" name="text" class="validate[required,length[4,300]] feedback-input" class="removeLabel" id="comment" placeholder="Label"></textarea>
+							<textarea rows="2" name="text" class="validate[required,length[4,300]] feedback-input" class="removeLabel" id="comment2" placeholder="Label"></textarea>
 						</p>
 						
 						
 						<div class="submit">
-							<input type="button" value="REMOVE" id="button-blue" class=".Remove"/>
+							<input type="button" value="REMOVE" id="button-blue2" class="Remove"/>
 							<div class="ease"></div>
 						</div>
 					</form>
 				</div>
 			
-			
+				<script>
+
+					document.getElementById("button-blue2").onclick = function() {Clear()};
+									
+					function Clear() {
+							document.getElementById("comment2").value = "";
+					}
+					document.getElementById("button-blue2").onmouseover = function() {Hover()};
+					
+					function Hover() {
+							
+						  document.getElementById("button-blue2").value="REMOVE";
+					
+					
+					
+					}
+					</script>
+				
+
+				<script>
+					document.getElementById("button-blue").onclick = function() {Clear1()};
+				
+					function Clear1() {
+							document.getElementById("comment").value = "";
+							document.getElementById("name").value = "";
+					}
+					document.getElementById("button-blue").onmouseover = function() {Hover1()};
+		
+					function Hover1() {
+							
+						  document.getElementById("button-blue").value="ADD";
+				
+				
+				
+					}
+					
+					</script>

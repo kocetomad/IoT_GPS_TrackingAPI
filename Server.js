@@ -182,7 +182,7 @@ app.post('/removeDevice',remove);
 function remove(request,response){
 
     ///TODO
-    client.query("update devices set label=null where label='"+request.body.label+"' and users='"+request.body.usr+"';update devices set users=null where deviceid=7 and users='keki';", (err, res) => {
+    client.query("update devices set users=null,label=null where label='"+request.body.label+"' and users='"+request.body.usr+"';", (err, res) => {
 
         if (err) {
           console.log(err.stack)
