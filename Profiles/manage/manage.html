@@ -37,7 +37,7 @@ html{
 @media screen and (max-aspect-ratio: 13/9)  {
 	#form-main{
 		position: relative;
-		top:110%;
+		top:100%;
 		left: 1%;
 		width:100%;
 		float:left;
@@ -45,6 +45,26 @@ html{
 	}
 }
 
+
+@media screen and (min-aspect-ratio: 13/9)  {
+	#form-main1{
+		position: relative;
+		width:100%;
+		float:left;
+		padding-top:30px;
+		position: absolute; top:1500%; left: 0%;
+	}
+}
+@media screen and (max-aspect-ratio: 13/9)  {
+	#form-main1{
+		position: absolute;
+		top:1500%;
+		left: 1%;
+		width:100%;
+		float:left;
+		padding-top:30px;
+	}
+}
 
 #form-div {
 	background-color:#3c3c3c;
@@ -371,6 +391,15 @@ window.addEventListener("resize", resizeHandler, false);
 			top:-20%;
 
 		}
+		#desc8{
+			top: 200%;
+			width: 90%;
+			font-size: 150%;
+			position: relative;
+			left: 8%;
+			padding-top:0%;
+
+		}
 	}
 	@media screen and (min-aspect-ratio: 13/9)  {
 
@@ -491,7 +520,7 @@ window.addEventListener("resize", resizeHandler, false);
 		
 			<div id="desc7" style="color: #fff;">Register a new device:</div>
 
-			<div id="form-main1" style="position: absolute; top:1600%; left: 50%;">
+			<div id="form-main1">
 				<div id="form-div">
 					<form class="form" id="form1">
 						<p class="text" >
