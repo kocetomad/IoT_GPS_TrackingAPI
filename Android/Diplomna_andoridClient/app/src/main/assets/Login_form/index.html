@@ -1,0 +1,75 @@
+<div id="Canvas"></div>
+
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="main.css">
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.js"></script>
+
+<script src="sketch.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<div class="login">
+  <h2 id="sign" class="active"> sign in </h2>
+
+  <h2 id="reg" class="nonactive"> sign up </h2>
+  <form>
+    <script>
+      document.getElementById("reg").onclick = function() {RegPanel()};
+      document.getElementById("sign").onclick = function() {SignPanel()};
+
+      function RegPanel() {
+          document.getElementById("reg").className = "active";
+          document.getElementById("sign").className = "nonactive";
+          document.getElementById("SignButton").innerHTML = "Register";
+          document.getElementById("SignButton").value = "register";
+          document.getElementById("password").value = "";
+          document.getElementById("username").value = "";
+          document.getElementById("validation").innerHTML = "";
+
+
+
+
+      }
+      function SignPanel() {
+          document.getElementById("reg").className = "nonactive";
+          document.getElementById("sign").className = "active";
+          document.getElementById("SignButton").innerHTML = "Sign In";
+          document.getElementById("SignButton").value = "signin";
+          document.getElementById("password").value = "";
+          document.getElementById("username").value = "";
+          document.getElementById("validation").innerHTML = "";
+
+
+
+
+      }
+      </script>
+      
+    
+
+    <input id="username" type="text" class="text" name="username">
+     <span>username</span>
+
+    <br>
+    
+    <br>
+
+    <input id="password" type="password" class="text" name="password">
+    <span>password</span>
+    <br>
+
+    <p id="validation" style="color:red;"></p>
+
+    
+    <button id="SignButton" type="button" class="signin" value="signin">
+      Sign In
+    </button>
+
+
+    <hr>
+
+  </form>
+
+
+</div>
