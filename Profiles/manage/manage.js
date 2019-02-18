@@ -5,6 +5,8 @@ function setup() {
     var button = select('.Send');
     button.mousePressed(Send);
     loadJSON('/userdata',gotData);
+    Android.anchorModeOff();
+
     
 
 }

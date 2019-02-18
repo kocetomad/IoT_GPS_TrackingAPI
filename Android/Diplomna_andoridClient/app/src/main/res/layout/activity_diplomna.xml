@@ -1,18 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Diplomna">
+
+    <TextView
+        android:id="@+id/longt"
+        android:layout_width="126dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/webview"
+        android:layout_alignLeft="@+id/webview"
+        android:layout_alignTop="@+id/TabLayouts"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="98dp"
+        android:layout_marginLeft="98dp"
+        android:layout_marginTop="212dp"
+        android:layout_marginEnd="187dp"
+        android:layout_marginRight="187dp"
+        android:text="Longtitude:" />
+
+    <TextView
+        android:id="@+id/latd"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/longt"
+        android:layout_alignStart="@+id/longt"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:text="Latitude: " />
 
     <WebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp">
 
@@ -59,28 +82,26 @@
         android:id="@+id/TabLayouts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:background="@android:color/background_light"
-        android:visibility="gone"
+        android:visibility="visible"
         app:tabIndicatorColor="@color/design_default_color_primary_dark">
 
         <android.support.design.widget.TabItem
+            android:id="@+id/left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@android:drawable/ic_dialog_map"
             android:text="Profile" />
 
         <android.support.design.widget.TabItem
+            android:id="@+id/right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@android:drawable/ic_menu_compass"
-            android:text="Anchor"
-            android:onClick="sendMessage"/>
+            android:text="Anchor" />
 
     </android.support.design.widget.TabLayout>
-
 
 </RelativeLayout>

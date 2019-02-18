@@ -21,6 +21,8 @@ function setup() {
   if(windowWidth<windowHeight){
   noCanvas();
   }
+
+
   //var test = select('#validation');
  // console.log(test.html());
 }
