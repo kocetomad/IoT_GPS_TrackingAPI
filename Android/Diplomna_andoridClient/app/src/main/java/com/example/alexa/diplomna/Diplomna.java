@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -31,9 +34,14 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.Console;
+
+import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 
 public class Diplomna extends AppCompatActivity {
@@ -46,24 +54,21 @@ public class Diplomna extends AppCompatActivity {
     private RelativeLayout view2;
     private FusedLocationProviderClient mFusedLocationClient;
 
-    private TextView longt;
-    private TextView latd;
 
 
 
-    LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-    private LocationCallback mLocationCallback;
+    private LocationManager locationManager;
+    private LocationListener locationListener;
+
+
+
     private LocationRequest mLocationRequest;
 
-
+    private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
+    private long FASTEST_INTERVAL = 2000; /* 2 sec */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diplomna);
         // Find the view pager that will allow the user to swipe between fragments
@@ -103,58 +108,7 @@ public class Diplomna extends AppCompatActivity {
 
             }
         });
-
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Check Permissions Now
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    1);
-        } else {
-
-            mFusedLocationClient.getLastLocation()
-                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-
-                            if (location != null) {
-                                longt=findViewById(R.id.longt);
-                                longt.setText("longtitude:" +location.getLongitude());
-
-                                latd=findViewById(R.id.latd);
-                                latd.setText("latitude:" + location.getLatitude());
-
-                                // Logic to handle location object
-                            }
-                        }
-                    });
-
-            mFusedLocationClient.requestLocationUpdates(mLocationRequest,
-                    mLocationCallback,
-                    null /* Looper */);
-        }
-
-
-
-
-        mLocationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    return;
-                }
-                for (Location location : locationResult.getLocations()) {
-                    // Update UI with location data
-                    // ...
-                }
-            };
-        };
-
-
+        startService(new Intent(this,MyLocationService.class));
 
 
 
@@ -162,14 +116,7 @@ public class Diplomna extends AppCompatActivity {
 
 
 
-
-    public void openwebview(View view){
-
-
-
-
-
-
+    public void openwebview(View view){                Log.d("test","alo");
 
 
         ViewGroup parentView = (ViewGroup) view.getParent();
