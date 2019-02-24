@@ -1,8 +1,10 @@
 package com.example.alexa.diplomna;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -15,6 +17,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -38,6 +41,10 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Console;
 
@@ -67,8 +74,16 @@ public class Diplomna extends AppCompatActivity {
     private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
 
+
+    private TextView longt;
+    private TextView latd;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diplomna);
         // Find the view pager that will allow the user to swipe between fragments
@@ -108,12 +123,16 @@ public class Diplomna extends AppCompatActivity {
 
             }
         });
+
+
+
+
+
+
         startService(new Intent(this,MyLocationService.class));
 
 
-
     }
-
 
 
     public void openwebview(View view){                Log.d("test","alo");
@@ -185,6 +204,16 @@ public class Diplomna extends AppCompatActivity {
         }
 
     }
+
+
+    @Subscribe
+    public void onMessageEvent(MyLocationService.MessageEvent event) {
+        longt=findViewById(R.id.longt);
+        longt.setText("Longt:"+event.longt);
+        longt=findViewById(R.id.latd);
+        longt.setText("Longt:"+event.latd);
+    }
+
 
 
 }

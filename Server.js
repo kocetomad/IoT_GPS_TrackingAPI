@@ -2,7 +2,8 @@ var express = require('express')
 var app = express()
 var server=app.listen(3000,listening);
 var bodyParser = require('body-parser')
-
+var fs = require('fs');
+var https = require('https');
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -10,6 +11,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+//SSL CREDS
+var privateKey  = fs.readFileSync('https_selfsigned_creds/server.key', 'utf8');
+var certificate = fs.readFileSync('https_selfsigned_creds/server.cert', 'utf8');
+var credentials = {key: privateKey, cert: certificate};
+var httpsServer = https.createServer(credentials, app);
+httpsServer.listen(8443,httpsListening);
 
 //DB
 const { Client } = require('pg');
@@ -205,9 +212,18 @@ function remove(request,response){
 
 function listening(){
 
-    console.log("Listening...")
+    console.log("Http Listening...")
   
   }
+
+
+  function httpsListening(){
+
+    console.log("Https Listening...")
+  
+  }
+
+
 
 app.use(express.static("Login_form"));
 app.use('/profile' , express.static("Profiles"));
