@@ -4,7 +4,7 @@ check=0
 add=""
 usage() { echo "Usage: $0 [-p <Port for web client socket>] [-s <Port for Android client socket>] [-d <directory>] [-u <Toggles USB support>] [-n (set name)<string>]" 1>&2; exit 1; }
 
-while getopts ":p:s:d:n:u" o; do
+while getopts ":p:s:h:d:n:u" o; do
     case "${o}" in
         p)
             p=${OPTARG}
@@ -15,6 +15,14 @@ while getopts ":p:s:d:n:u" o; do
 	s)
 	    s=${OPTARG}
 	    if ! [[ $s =~ $re ]] ; then
+                 echo "Invalid Port Number" >&2; exit 1
+            fi
+            ;;
+
+        h)
+        	h=${OPTARG}
+
+        if ! [[ $h =~ $re ]] ; then
                  echo "Invalid Port Number" >&2; exit 1
             fi
             ;;
@@ -43,7 +51,7 @@ while getopts ":p:s:d:n:u" o; do
 done
 shift $((OPTIND-1))
 
-if [ -z "${p}" ] || [ -z "${s}"] || [ -z "${d}" ] || [ -z "${n}" ]; then
+if [ -z "${p}" ] || [ -z "${s}"] || [ -z "${h}"] || [ -z "${d}" ] || [ -z "${n}" ]; then
     usage
 fi
 
@@ -57,7 +65,7 @@ else
 fi;
 
 
-docker run -d --expose=3000 --expose=4000 -p $p:3000 -p $s:4000 -v $d:/Node $u $n noxid/diplomna:v1
+docker run -d --expose=3000 --expose=4000 --expose=8443 -p $p:3000 -p $s:4000 -p $h:8443 -v $d:/Node $u $n noxid/diplomna:v3
 
 sleep 1
 docker exec -d -it $add bash ./Test.sh

@@ -29,7 +29,6 @@
         </activity>
 
     <service android:name=".MyLocationService" android:process=":my_service"></service>
-        <receiver android:name=".MyLocationService"></receiver>
     </application>
 
 </manifest>

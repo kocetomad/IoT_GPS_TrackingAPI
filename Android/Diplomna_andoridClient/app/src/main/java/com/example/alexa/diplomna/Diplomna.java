@@ -20,6 +20,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -32,6 +33,8 @@ import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -42,20 +45,26 @@ import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Console;
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 
 public class Diplomna extends AppCompatActivity {
+
+    public static String coords;
     private WebView webView;
     private TextView text;
     private EditText editText;
-    public String SERVER;
+    public static String SERVER;
     private WebAppInterface1 webinterface;
     private android.support.design.widget.TabLayout tabLayout;
     private RelativeLayout view2;
@@ -80,9 +89,16 @@ public class Diplomna extends AppCompatActivity {
 
 
 
+
+
+    private Socket mSocket;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        EventBus.getDefault().register(this);
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diplomna);
@@ -124,13 +140,7 @@ public class Diplomna extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
         startService(new Intent(this,MyLocationService.class));
-
 
     }
 
@@ -155,6 +165,16 @@ public class Diplomna extends AppCompatActivity {
         webView.addJavascriptInterface(webinterface,"Android");
         webView.loadUrl(SERVER);
 
+    }
+
+
+
+    private void attemptSend() {
+        String message = "хи";
+        if (TextUtils.isEmpty(message)) {
+            return;
+        }
+        mSocket.emit("new message", message);
     }
 
     public void sendMessage(View view)
@@ -206,13 +226,6 @@ public class Diplomna extends AppCompatActivity {
     }
 
 
-    @Subscribe
-    public void onMessageEvent(MyLocationService.MessageEvent event) {
-        longt=findViewById(R.id.longt);
-        longt.setText("Longt:"+event.longt);
-        longt=findViewById(R.id.latd);
-        longt.setText("Longt:"+event.latd);
-    }
 
 
 

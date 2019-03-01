@@ -1,9 +1,9 @@
 var express = require('express')
 var app = express()
-var server=app.listen(3000,listening);
 var bodyParser = require('body-parser')
 var fs = require('fs');
 var https = require('https');
+var http = require('http');
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -17,6 +17,9 @@ var certificate = fs.readFileSync('https_selfsigned_creds/server.cert', 'utf8');
 var credentials = {key: privateKey, cert: certificate};
 var httpsServer = https.createServer(credentials, app);
 httpsServer.listen(8443,httpsListening);
+
+var httpServer = http.createServer(app);
+httpServer.listen(3000,listening);
 
 //DB
 const { Client } = require('pg');
@@ -125,7 +128,7 @@ function Signin(request,response){
 
 app.post('/locations',locations);
 function locations(request,response){
-    console.log(request.body.usr);
+    console.log(request.body);
 
     client.query(" select * from devices where users='"+request.body.usr+"';", (err, res) => {
         if (err) {
@@ -208,7 +211,52 @@ function remove(request,response){
 
 
 
-///////////////////////////////////////////////////////END OF DEVICE MANAGMENT SEGMENT////////////////////////////////////////////////
+///////////////////////////////////////////////////////END OF DEVICE MANAGMENT SEGMENT///////////////////////////////////////////////
+
+//////////////////////////////////////////////////////ANCHOR GPS HANDLING///////////////////////////////////////////////
+
+app.post('/anchorData',anchorData);
+
+function anchorData(request,response){
+    console.log(request.body);
+
+    client.query(" select * from devices where users='"+request.body.usr+"';", (err, res) => {
+        if (err) {
+          console.log(err.stack)
+        } else {
+            var reply={
+                msg: res.rows
+            }
+            console.log(reply);
+            response.send(reply);
+                
+    }
+    })
+   
+    }
+
+
+
+
+//////////////////////////////////////////////////////END OF ANCHOR GPS HANDLING///////////////////////////////////////////////
+
+var socket = require('socket.io');
+
+var io = socket(httpServer,httpsServer);
+
+io.sockets.on('connection', newConnection);
+
+function newConnection(socket) {
+  console.log('new connection:' + socket.id);
+  socket.on('new message', msg1);
+  function msg1(data) {
+    console.log(data);
+
+    }
+
+}
+
+
 
 function listening(){
 
