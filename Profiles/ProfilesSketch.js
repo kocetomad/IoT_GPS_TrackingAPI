@@ -5,7 +5,6 @@ function setup() {
   Android.anchorMode();
 
 
-
 }
 function gotData(response){
 
@@ -26,5 +25,7 @@ function gotData(response){
     location.pathname='/';
     console.log(location.pathname);
   }
+  Android.getUser(user);
+
 }
 

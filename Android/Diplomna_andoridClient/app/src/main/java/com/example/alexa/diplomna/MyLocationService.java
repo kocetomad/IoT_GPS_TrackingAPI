@@ -8,6 +8,7 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -42,17 +43,20 @@ import static com.example.alexa.diplomna.Diplomna.SERVER;
  */
 
 public class MyLocationService extends Service {
-    private Socket mSocket;
 
     private static final String TAG = "location";
     private LocationManager mLocationManager = null;
     private static final int LOCATION_INTERVAL = 1000;
-    private static final float LOCATION_DISTANCE = 0;
+    private static final float LOCATION_DISTANCE = 1;
 
 
     private TextView longt;
     private TextView latd;
 
+
+    private Socket mSocket;
+    public String SERVER;
+    public String USER;
 
     private class LocationListener implements android.location.LocationListener {
         Location mLastLocation;
@@ -61,7 +65,6 @@ public class MyLocationService extends Service {
             Log.e(TAG, "LocationListener " + provider);
             mLastLocation = new Location(provider);
 
-            attemptSend();
 
         }
 
@@ -69,6 +72,8 @@ public class MyLocationService extends Service {
         public void onLocationChanged(Location location) {
             Log.e(TAG, "onLocationChanged: " + location);
             mLastLocation.set(location);
+            String str=""+location.getLatitude()+";"+location.getLongitude()+";"+USER;
+            attemptSend(str);
 
         }
 
@@ -102,11 +107,12 @@ public class MyLocationService extends Service {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        try {
+       try {
             mSocket = IO.socket(SERVER);
         } catch (URISyntaxException e) {}
 
         mSocket.connect();
+
 
         Log.e(TAG, "onStartCommand");
         super.onStartCommand(intent, flags, startId);
@@ -131,6 +137,10 @@ public class MyLocationService extends Service {
     }
     @Override
     public void onCreate() {
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        SERVER = prefs.getString("server", "No url defined");//"No name defined" is the default value.
+        USER=prefs.getString("user", "No user defined");
+        Log.e("user",USER);
 
 
         Log.e(TAG, "onCreate");
@@ -153,6 +163,17 @@ public class MyLocationService extends Service {
         } catch (IllegalArgumentException ex) {
             Log.d(TAG, "gps provider does not exist " + ex.getMessage());
         }
+
+        //attemptSend();
+    }
+
+
+    private void attemptSend(String location) {
+        //String message = "хи";
+        if (TextUtils.isEmpty(location)) {
+            return;
+        }
+        mSocket.emit("new message", location);
     }
 
     @Override
@@ -168,14 +189,11 @@ public class MyLocationService extends Service {
                 }
             }
         }
+       /* super.onDestroy();
+        stopService(new Intent(this, MyLocationService.class));
+        stopForeground(true);*/
     }
-    private void attemptSend() {
-        String message = "хи";
-        if (TextUtils.isEmpty(message)) {
-            return;
-        }
-        mSocket.emit("new message", message);
-    }
+
 
     private void initializeLocationManager() {
         Log.e(TAG, "initializeLocationManager");

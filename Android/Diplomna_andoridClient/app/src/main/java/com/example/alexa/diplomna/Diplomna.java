@@ -5,7 +5,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -28,6 +30,7 @@ import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.EditText;
@@ -83,14 +86,14 @@ public class Diplomna extends AppCompatActivity {
     private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
 
-
+    private Button anchorButton;
     private TextView longt;
     private TextView latd;
 
 
 
 
-
+    public boolean anchorToggled=false;
     private Socket mSocket;
 
 
@@ -99,6 +102,8 @@ public class Diplomna extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diplomna);
@@ -113,13 +118,19 @@ public class Diplomna extends AppCompatActivity {
 
             public void onTabSelected(TabLayout.Tab tab) {
                 if(tabLayout.getSelectedTabPosition() == 0){
-                    Toast.makeText(Diplomna.this, "Tab " + tabLayout.getSelectedTabPosition(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(Diplomna.this, "Tab " + "Anchor control", Toast.LENGTH_LONG).show();
                     webView=(WebView) findViewById(R.id.webview);
                     webView.setVisibility(View.VISIBLE);
+                    anchorButton=findViewById(R.id.anchorButton);
+                    anchorButton.setVisibility(View.INVISIBLE);
+
                 }else if(tabLayout.getSelectedTabPosition() == 1){
-                    Toast.makeText(Diplomna.this, "Tab " + tabLayout.getSelectedTabPosition(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(Diplomna.this, "Tab " + "User profile", Toast.LENGTH_LONG).show();
                     webView=(WebView) findViewById(R.id.webview);
                     webView.setVisibility(View.INVISIBLE);
+                    anchorButton=findViewById(R.id.anchorButton);
+                    anchorButton.setVisibility(View.VISIBLE);
+
 
 
 
@@ -140,9 +151,35 @@ public class Diplomna extends AppCompatActivity {
             }
         });
 
-        startService(new Intent(this,MyLocationService.class));
+       // startService(new Intent(this,MyLocationService.class));
 
     }
+
+    public void toggleanchoMode(View view){
+        Intent myService=new Intent(this,MyLocationService.class);
+        if (anchorToggled==false) {
+
+            startService(myService);
+            anchorToggled=true;
+            anchorButton=findViewById(R.id.anchorButton);
+            anchorButton.setText("Toggle anchor mode OFF");
+            anchorButton.setBackgroundColor(Color.parseColor("#ffb1ad"));
+            return;
+
+        }
+        if (anchorToggled==true){
+            stopService(myService);
+            anchorButton.setText("Toggle anchor mode ON");
+            anchorButton.setBackgroundColor(Color.parseColor("#adffe2"));
+
+            anchorToggled=false;return;
+
+        }
+
+
+
+    }
+
 
 
     public void openwebview(View view){                Log.d("test","alo");
@@ -161,21 +198,32 @@ public class Diplomna extends AppCompatActivity {
         webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
         SERVER=editText.getText().toString();
+
+        SharedPreferences.Editor editor = getSharedPreferences("prefs", MODE_PRIVATE).edit();
+        editor.putString("server", SERVER);
+        editor.apply();
+
         webinterface=new WebAppInterface1(this);
         webView.addJavascriptInterface(webinterface,"Android");
         webView.loadUrl(SERVER);
+     /*   try {
+            mSocket = IO.socket(SERVER);
+        } catch (URISyntaxException e) {}
+
+        mSocket.connect();
+        attemptSend();*/
 
     }
 
 
 
-    private void attemptSend() {
+    /*private void attemptSend() {
         String message = "хи";
         if (TextUtils.isEmpty(message)) {
             return;
         }
         mSocket.emit("new message", message);
-    }
+    }*/
 
     public void sendMessage(View view)
     {
@@ -222,6 +270,16 @@ public class Diplomna extends AppCompatActivity {
             });
 
         }
+
+        @JavascriptInterface
+        public void getUser(String user) {
+            SharedPreferences.Editor editor = getSharedPreferences("prefs", MODE_PRIVATE).edit();
+            editor.putString("user", user);
+            editor.apply();
+
+        }
+
+
 
     }
 

@@ -250,7 +250,31 @@ function newConnection(socket) {
   console.log('new connection:' + socket.id);
   socket.on('new message', msg1);
   function msg1(data) {
-    console.log(data);
+
+    var arr = data.split(";").map(function (val) {
+    return val;
+    });
+    arr[0]=Number(arr[0]);
+    arr[1]=Number(arr[1]);
+    client.query("update registered_users set anchor_latd="+arr[0]+" ,anchor_longt="+arr[1]+" where username='"+arr[2]+"';", (err, res) => {
+
+        if (err) {
+          console.log(err.stack)
+        
+        } else {
+          /*  var reply={
+                msg: res.rowCount
+            }
+            response.send(reply);*/
+
+            console.log(res);
+
+
+    }
+    })
+    //update registered_users set anchor_latd=1,anchor_longt=1 where username='koce';
+    console.log(arr);
+    //console.log(data);
 
     }
 
