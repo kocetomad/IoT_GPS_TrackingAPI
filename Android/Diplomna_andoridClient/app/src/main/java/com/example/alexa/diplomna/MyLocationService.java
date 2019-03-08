@@ -47,7 +47,7 @@ public class MyLocationService extends Service {
     private static final String TAG = "location";
     private LocationManager mLocationManager = null;
     private static final int LOCATION_INTERVAL = 1000;
-    private static final float LOCATION_DISTANCE = 1;
+    private static final float LOCATION_DISTANCE = 0;
 
 
     private TextView longt;
@@ -140,10 +140,8 @@ public class MyLocationService extends Service {
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         SERVER = prefs.getString("server", "No url defined");//"No name defined" is the default value.
         USER=prefs.getString("user", "No user defined");
-        Log.e("user",USER);
 
 
-        Log.e(TAG, "onCreate");
         initializeLocationManager();
         try {
             mLocationManager.requestLocationUpdates(

@@ -129,20 +129,31 @@ function Signin(request,response){
 app.post('/locations',locations);
 function locations(request,response){
     console.log(request.body);
-
+    
     client.query(" select * from devices where users='"+request.body.usr+"';", (err, res) => {
         if (err) {
           console.log(err.stack)
         } else {
-            var reply={
-                msg: res.rows
+            client.query("select anchor_latd,anchor_longt from registered_users where username='"+request.body.usr+"';", (err1, res1) => {
+                if (err1) {
+                  console.log(err1.stack)
+                } else {
+                    var reply={
+                        msg:  res.rows,
+                        anchor: res1.rows
+                    }
+                    //console.log(reply);
+
+                    response.send(reply);
+
             }
-            console.log(reply);
-            response.send(reply);
+            })
+            
                 
     }
     })
-   
+ 
+
 }
 
 ///////////////////////////////////////////////////////END OF SEND LOCATIONS/////////////////////////////////////////////////
