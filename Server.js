@@ -1,3 +1,4 @@
+
 var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
@@ -22,7 +23,7 @@ var httpServer = http.createServer(app);
 httpServer.listen(3000,listening);
 
 //DB
-const { Client } = require('pg');
+var { Client } = require('pg');
 const client = new Client({
   user: 'postgres',
   host: '172.17.0.1',
@@ -273,10 +274,10 @@ function newConnection(socket) {
           console.log(err.stack)
         
         } else {
-          /*  var reply={
+           var reply={
                 msg: res.rowCount
             }
-            response.send(reply);*/
+           // res.send(reply);
 
             console.log(res);
 
@@ -290,6 +291,7 @@ function newConnection(socket) {
     }
 
 }
+
 
 
 
@@ -310,4 +312,3 @@ function listening(){
 
 app.use(express.static("Login_form"));
 app.use('/profile' , express.static("Profiles"));
-

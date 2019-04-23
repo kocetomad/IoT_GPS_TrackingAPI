@@ -65,7 +65,7 @@ else
 fi;
 
 
-docker run -d --expose=3000 --expose=4000 --expose=8443 -p $p:3000 -p $s:4000 -p $h:8443 -v $d:/Node $u $n noxid/diplomna:v3
+docker run -d --expose=3000 --expose=4000 --expose=8443 -p $p:3000 -p $s:4000 -p $h:8443 -v $d:/Node $u $n noxid/diplomna:v5
 
 sleep 1
 docker exec -d -it $add bash ./Test.sh

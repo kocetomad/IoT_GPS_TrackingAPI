@@ -1,39 +1,50 @@
 var user;
 var map;
+var markers=[];
 function setup() {
   var styledMapType = new google.maps.StyledMapType(
     [ { "elementType": "geometry", "stylers": [ { "color": "#1d2c4d" } ] }, { "elementType": "labels.text.fill", "stylers": [ { "color": "#8ec3b9" } ] }, { "elementType": "labels.text.stroke", "stylers": [ { "color": "#1a3646" } ] }, { "featureType": "administrative.country", "elementType": "geometry.stroke", "stylers": [ { "color": "#4b6878" } ] }, { "featureType": "administrative.land_parcel", "elementType": "labels.text.fill", "stylers": [ { "color": "#64779e" } ] }, { "featureType": "administrative.province", "elementType": "geometry.stroke", "stylers": [ { "color": "#4b6878" } ] }, { "featureType": "landscape", "stylers": [ { "visibility": "simplified" } ] }, { "featureType": "landscape.man_made", "elementType": "geometry.stroke", "stylers": [ { "color": "#334e87" } ] }, { "featureType": "landscape.natural", "elementType": "geometry", "stylers": [ { "color": "#023e58" } ] }, { "featureType": "poi", "elementType": "geometry", "stylers": [ { "color": "#283d6a" } ] }, { "featureType": "poi", "elementType": "labels.text.fill", "stylers": [ { "color": "#6f9ba5" } ] }, { "featureType": "poi", "elementType": "labels.text.stroke", "stylers": [ { "color": "#1d2c4d" } ] }, { "featureType": "poi.park", "elementType": "geometry.fill", "stylers": [ { "color": "#023e58" } ] }, { "featureType": "poi.park", "elementType": "labels.text.fill", "stylers": [ { "color": "#3C7680" } ] }, { "featureType": "road", "elementType": "geometry", "stylers": [ { "color": "#304a7d" } ] }, { "featureType": "road", "elementType": "labels.text.fill", "stylers": [ { "color": "#98a5be" } ] }, { "featureType": "road", "elementType": "labels.text.stroke", "stylers": [ { "color": "#1d2c4d" } ] }, { "featureType": "road.highway", "elementType": "geometry", "stylers": [ { "color": "#2c6675" } ] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [ { "color": "#255763" } ] }, { "featureType": "road.highway", "elementType": "labels.text.fill", "stylers": [ { "color": "#b0d5ce" } ] }, { "featureType": "road.highway", "elementType": "labels.text.stroke", "stylers": [ { "color": "#023e58" } ] }, { "featureType": "transit", "elementType": "labels.text.fill", "stylers": [ { "color": "#98a5be" } ] }, { "featureType": "transit", "elementType": "labels.text.stroke", "stylers": [ { "color": "#1d2c4d" } ] }, { "featureType": "transit.line", "elementType": "geometry.fill", "stylers": [ { "color": "#283d6a" } ] }, { "featureType": "transit.station", "elementType": "geometry", "stylers": [ { "color": "#3a4762" } ] }, { "featureType": "water", "elementType": "geometry", "stylers": [ { "color": "#0e1626" } ] }, { "featureType": "water", "elementType": "labels.text.fill", "stylers": [ { "color": "#4e6d70" } ] } ],
     {name: 'Styled Map'});
 
-    var uluru = {lat: 0, lng: 0};
+    var uluru = {lat:42.6, lng: 23.3};
  // The map, centered at Uluru
  map = new google.maps.Map(
-     document.getElementById('map'), {zoom: 4, center: uluru});
+     document.getElementById('map'), {zoom: 11, center: uluru});
  // The marker, positioned at Uluru
  map.mapTypes.set('styled_map', styledMapType);
  map.setMapTypeId('styled_map');
   loadJSON('/userdata',gotData)
   //noCanvas();
+  
+  var button = select('#tesst');
+  button.mousePressed(TEST);
+
   Android.anchorModeOff();
+
+
 
  
 
 
 }
+setInterval(TEST, 8000);
 
-function draw() {
-  var data={
-    usr:user
+
+function TEST(){
+
+  for(var i=0;i<markers.length;i++){
+    markers[i].setMap(null);
   }
-  httpPost("/locations",data,'json',locationData);
-  console.log("INIT");
-  delay(1000);
+  markers = [];
+
+   loadJSON('/userdata',gotData)
+
+
 }
 
 
-
 function gotData(response){
-
+  
 
   if (response.usr!=""){
   document.cookie = "username="+response.usr+";expires=Thu, 01 Jan 2019 00:00:00 UTC; path=/;";
@@ -55,7 +66,6 @@ function gotData(response){
     usr:user
   }
   httpPost("/locations",data,'json',locationData);
-  draw();
 }
 
 function locationData(data){
@@ -88,11 +98,10 @@ function locationData(data){
   marker.addListener('click', function() {
    window.location.href = this.url;
   });
+  markers.push(marker);
   
   
  
-  
-  
 }
 
 var latLng = new google.maps.LatLng(data.anchor[0].anchor_latd,data.anchor[0].anchor_longt);
@@ -114,7 +123,9 @@ marker.addListener('click', function() {
  window.location.href = this.url;
 });
 
+markers.push(marker);
 
+/**/
 
 }
 
